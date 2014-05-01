@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+		
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+<script src="jquery.min.js"></script>
+<style> 
+div
+{
+border:2px solid #00CC00;
+padding:2px 10px; 
+background:#ffffff;
+
+
+border-radius:25px;
+-moz-border-radius:25px; /* Old Firefox93c23c #FF0000*/
+}
+</style>
+<script>
+function myFunction()
+{
+var x=document.getElementById("file_r1");
+ //alert("x: " + x );
+var y=document.getElementById("infile1");
+//alert("y: " + y );
+//alert("xvalue: " + x.value );
+var n=x.value.replace("&amp;","&");
+y.value=n;
+//alert("yvalue: " + y.value );
+}
+
+
+</script>
+<script>
+function myFunction2()
+{
+var x=document.getElementById("Ahosts");
+var y=document.getElementById("host");
+var yy=document.getElementById("host1");
+var w=document.getElementById("source1");
+//var doc = w.contentWindow.document;
+//var w0 = x.value.split('.');
+//body.style.backgroundColor = 'green'
+//w.value = w0[0];
+w.value = x.value;
+//doc.body.style.backgroundColor = 'green';
+//var doc = w.contentWindow.document.body.style.backgroundColor = 'green'
+y.value=x.value;
+yy.value=x.value;
+}
+
+
+</script>
+<script>
+function myFunction1()
+{
+      
+
+    $.get("/mh_result",function(data,status){
+       
+       var spl1 = data.split(',');
+       var spll = spl1.length;
+      var t =document.getElementById("Ahosts");
+      var  option = [];
+
+        for ( var i=0; i < spll; i++ ) {
+ option [i] = document.createElement("option");
+   option[i].setAttribute("value",spl1[i] );
+   option[i].innerHTML = spl1[i];
+  t.appendChild(option[i]);
+
+    }
+  
+    });
+ 
+}
+</script>
+
+<script>
+function myFunction7()
+{
+      
+
+    $.get("/hfs",function(m,status){
+       
+        //alert("Datammmm1: " + m + "\nStatus: " + status);
+		    var ss1 = m.split(',');
+                     var ss2 = [];
+                        var ss11 = [];
+                      for ( var i=0; i < ss1.length; i++ ) {
+       			var sss = ss1[i].split('&');
+       			if (sss[1] == undefined){
+       			var sss1 = ss1[i+1].split('&');
+        
+        		if (sss1[1] != undefined) {
+                
+              ss11[i] = ss1[i] +ss1[i+1];
+               var fs2= ss11[i].split('/');
+                  ss2[i] = fs2.pop();         
+             i++;
+            } 
+ 	 } else {var fs1= ss1[i].split('/'); ss2[i] = fs1.pop(); }
+
+}
+  var t =document.getElementById("file_r1");
+                    var  option = [];
+
+        for ( var i=0; i < ss2.length; i++ ) {
+ option [i] = document.createElement("option");
+   option[i].setAttribute("value",ss2[i] );
+   option[i].innerHTML = ss2[i];
+  t.appendChild(option[i]);
+
+    }
+                
+  
+    });
+ 
+}
+</script>
+
+
+<script>
+function myFunction4()
+{
+      
+
+    $.get("/mh",function(data,status){
+       
+        alert( data);
+  
+    });
+ 
+}
+</script>
+
+<script>
+function myFunction5()
+{
+      var y=document.getElementById("host");
+       //var z=document.getElementById("host");
+$.post("/hf",
+    {"user":{"folder":y.value}},
+    function(data,status){
+      alert("Data: " + data + "\nStatus: " + status);
+    });
+ 
+}
+</script>
+<script>
+function myFunction6()
+{
+      
+
+    $.get("/hfs",function(data,status){
+       alert("Data: " + data + "\nStatus: " + status);
+       // location.reload()
+  
+    });
+ 
+}
+function myFunction9()
+{
+      var x=document.getElementById("host");
+alert("x.value: " + x.value );
+    $.get("192.168.2.2:61949",function(data,status){
+       alert("Data: " + data + "\nStatus: " + status);
+       // location.reload()
+  
+    });
+ 
+}
+
+function go(){
+     var x =document.getElementById("host");
+     var y = document.getElementById("frame1");
+    var doc = y.contentWindow.document
+  
+   // alert("y.src: " + y.src );
+    //alert("x.value: " + x.value );
+    y.src = x.value;
+    //doc.body.style.backgroundColor = 'green'
+   //alert("y.src: " + y.src );
+    //document.getElementById("frame1").contentWindow.location.reload(true);
+    //y.load('http://192.168.2.2:61949/')
+    //window.frames["frame1"].location = x.value; 
+}
+</script>
+</head>
+
+ <body>
+
+
+<div>
+  
+  <p>
+    <button onclick="myFunction4()">Request "Active Hosts"</button>
+</p>
+   </div>
+
+
+<div>
+  
+    <p>
+    <button onclick="myFunction1()">Get results for "Active Hosts"</button>
+</p>
+
+<p>
+<form   >
+   
+    <select  id="Ahosts"  onchange="myFunction2()">
+   
+      <option value="Select" selected>Select an Active Host</option>
+     
+     </select>
+    
+
+</form>
+<input type="text" id="host" name="user[folder]" value="insert a host name ">
+    
+      <input type="button" onclick="go()" value="Get files & folders from target">
+</p>
+</div>
+<div>
+ <p>
+ <strong>Browse files & folders</strong>
+</p> 
+<iframe src="http://localhost:61949" frameborder=0 id="frame1" width="550" height="250" ></iframe>
+</div>
+
+
+<div>
+<p>
+ <strong>Action Box</strong> 
+</p>
+<form method="post" action="/hr">
+
+
+
+         <input type="text" id="source1"  name="user[source]"  value=" 'Source Host' or 'elf'" >
+	<input type="text" name="user[destination]" value="'Destination Host' or 'comma separated Hosts'" >
+	<input type="text" id="infile1" name="user[infile]" value="'Source File' or 'elf'"  >
+	<input type="text" name="user[outfile]"value="'Output File'" >
+	<input  type="submit" value="Start Data Transfer" align="right">
+    
+    </form>
+         
+</div>	
+
+
+
+  </body>
+</html>
+

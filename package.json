@@ -1,0 +1,46 @@
+{
+  "name": "elastic-transfer",
+  "version": "0.3.9",
+  "description": "Elastic | Transfer (innovating file management)",
+  "main": "Channel.js",
+  "dependencies": {
+    "commander": "~1.0.4",
+    "express": "3.x.x",
+    "localtunnel": "1.2.0",
+    "ejs": "0.8.3",
+    "nodemailer-noiconv": "0.2.4",
+    "open": "0.0.3",
+    "request": "2.16.6",
+    "imap": "0.8.8",
+    "prompt": "0.2.9",
+    "optimist": "0.4.0"
+  },
+  
+  "author": {
+    "name": "Elastic Transfer",
+    "email": "elastic.transfer@gmail.com"
+  },
+  "keywords": [
+    "elastic transfer",
+    "etjs",
+    "et-js",
+    "file management",
+    "file transfer",
+    "gmail",
+    "http",
+    "reverse http",
+    "ptth",
+    "app"
+  ],
+"licenses": [
+    {
+      "type": "Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)",
+      "url": "http://creativecommons.org/licenses/by-sa/3.0/"
+    }
+  ],
+  "engines": {
+    "node": ">=0.6"
+    
+  }
+ 
+}
